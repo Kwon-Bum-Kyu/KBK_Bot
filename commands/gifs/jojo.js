@@ -10,7 +10,7 @@ module.exports = class JojoCommand extends Command {
       aliases: ['jojo-gif', 'jojo-gifs'],
       group: 'gifs',
       memberName: 'jojo',
-      description: 'Replies with a random jojo gif!',
+      description: '죠죠 움짤을 올립니다.',
       throttling: {
         usages: 2,
         duration: 8

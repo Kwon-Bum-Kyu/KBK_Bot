@@ -9,7 +9,7 @@ module.exports = class GintamaCommand extends Command {
       name: 'gintama',
       group: 'gifs',
       memberName: 'gintama',
-      description: 'Replies with a gintama gif!',
+      description: '은혼 움짤을 올립니다.',
       throttling: {
         usages: 2,
         duration: 8

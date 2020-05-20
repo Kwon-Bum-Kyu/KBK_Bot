@@ -9,7 +9,7 @@ module.exports = class GifCommand extends Command {
       group: 'gifs',
       aliases: ['search-gif', 'search-gifs'],
       memberName: 'gif',
-      description: 'Provide a query and I will return a gif!',
+      description: '움짤 검색기',
       throttling: {
         usages: 1,
         duration: 4
@@ -17,7 +17,7 @@ module.exports = class GifCommand extends Command {
       args: [
         {
           key: 'text',
-          prompt: 'What gif would you like to watch?',
+          prompt: '검색하고 싶은 게 무엇인가요?',
           type: 'string',
           validate: text => text.length < 50
         }
@@ -30,9 +30,8 @@ module.exports = class GifCommand extends Command {
       .then(res => res.json())
       .then(json => message.say(json.results[0].url))
       .catch(e => {
-        message.say('Failed to find a gif that matched your query');
-        // console.error(e);
-        return;
+        message.say('그런 건 없습니다.');
+        return console.error(e);
       });
   }
 };
