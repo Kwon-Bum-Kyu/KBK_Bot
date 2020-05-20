@@ -1,13 +1,13 @@
 const { Command } = require('discord.js-commando');
 
-module.exports = class ResumeCommand extends Command {
+module.exports = class SkipAllCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'resume',
-      aliases: ['resume-song', 'continue'],
-      memberName: 'resume',
+      name: 'skipall',
+      aliases: ['skip-all'],
+      memberName: 'skipall',
       group: 'music',
-      description: '일시중지된 곡의 재생을 재개합니다. !pause 로 곡을 일시중지합니다.',
+      description: '대기열에 존재하는 모든 곡을 넘깁니다.',
       guildOnly: true
     });
   }
@@ -18,13 +18,14 @@ module.exports = class ResumeCommand extends Command {
 
     if (
       typeof message.guild.musicData.songDispatcher == 'undefined' ||
-      message.guild.musicData.songDispatcher === null
+      message.guild.musicData.songDispatcher == null
     ) {
       return message.reply('현재 재생 중인 곡이 없습니다.');
     }
-
-    message.say('곡 재개됨 :play_pause:');
-
-    message.guild.musicData.songDispatcher.resume();
+    if (!message.guild.musicData.queue)
+      return message.say('현재 대기열에 곡이 없습니다.');
+    message.guild.musicData.songDispatcher.end();
+    message.guild.musicData.queue.length = 0; // clear queue
+    return;
   }
 };

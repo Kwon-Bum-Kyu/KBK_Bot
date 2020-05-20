@@ -7,36 +7,34 @@ module.exports = class ShuffleQueueCommand extends Command {
       name: 'shuffle',
       memberName: 'shuffle',
       group: 'music',
-      description: 'Shuffle the song queue',
+      description: '곡 대기열의 순서를 섞습니다. (셔플)',
       guildOnly: true
     });
   }
   run(message) {
     var voiceChannel = message.member.voice.channel;
-    if (!voiceChannel) return message.reply('Join a channel and try again');
+    if (!voiceChannel) return message.reply('음성 채널에 진입 후 사용해주세요.');
 
     if (
       typeof message.guild.musicData.songDispatcher == 'undefined' ||
       message.guild.musicData.songDispatcher == null
     ) {
-      return message.reply('There is no song playing right now!');
+      return message.reply('현재 재생 중인 곡이 없습니다.');
     }
 
     if (message.guild.musicData.queue.length < 1)
-      return message.say('There are no songs in queue');
+      return message.say('현재 대기열에 곡이 없습니다.');
 
     shuffleQueue(message.guild.musicData.queue);
 
     const titleArray = [];
-    message.guild.musicData.queue.slice(0, 10).forEach(obj => {
+    message.guild.musicData.queue.map(obj => {
       titleArray.push(obj.title);
     });
-    var numOfEmbedFields = 10;
-    if (titleArray.length < 10) numOfEmbedFields = titleArray.length;
     var queueEmbed = new MessageEmbed()
       .setColor('#ff7373')
       .setTitle('New Music Queue');
-    for (let i = 0; i < numOfEmbedFields; i++) {
+    for (let i = 0; i < titleArray.length; i++) {
       queueEmbed.addField(`${i + 1}:`, `${titleArray[i]}`);
     }
     return message.say(queueEmbed);

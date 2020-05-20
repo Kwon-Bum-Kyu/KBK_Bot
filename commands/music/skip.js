@@ -7,23 +7,22 @@ module.exports = class SkipCommand extends Command {
       aliases: ['skip-song', 'advance-song'],
       memberName: 'skip',
       group: 'music',
-      description: 'Skip the current playing song',
+      description: '현재 재생 중인 곡을 넘깁니다.',
       guildOnly: true
     });
   }
 
   run(message) {
     const voiceChannel = message.member.voice.channel;
-    if (!voiceChannel) return message.reply('Join a channel and try again');
+    if (!voiceChannel) return message.reply('음성 채널에 진입 후 사용해주세요.');
 
     if (
       typeof message.guild.musicData.songDispatcher == 'undefined' ||
       message.guild.musicData.songDispatcher == null
     ) {
-      return message.reply('There is no song playing right now!');
-    } else if (message.guild.triviaData.isTriviaRunning) {
-      return message.reply(`You can't skip a trivia! Use end-trivia`);
+      return message.reply('현재 재생 중인 곡이 없습니다.');
     }
+    message.guild.musicData.isLoop = false;
     message.guild.musicData.songDispatcher.end();
   }
 };

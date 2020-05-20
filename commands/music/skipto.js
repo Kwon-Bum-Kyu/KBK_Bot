@@ -1,22 +1,25 @@
 const { Command } = require('discord.js-commando');
 
-module.exports = class RemoveSongCommand extends Command {
+module.exports = class SkipToCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'remove',
-      memberName: 'remove',
+      name: 'skipto',
+      memberName: 'skipto',
       group: 'music',
-      description: '대기열에서 특정 곡을 제거합니다. (대기열 순번 필요)',
+      description:
+        '특정 대기열 순번의 곡으로 넘어갑니다.',
       guildOnly: true,
       args: [
         {
           key: 'songNumber',
-          prompt: 'What song number do you want to remove from queue?',
+          prompt:
+            'What is the number in queue of the song you want to skip to?, it needs to be greater than 1',
           type: 'integer'
         }
       ]
     });
   }
+
   run(message, { songNumber }) {
     if (songNumber < 1 && songNumber >= message.guild.musicData.queue.length) {
       return message.reply('유효한 곡 순번을 입력해주세요.');
@@ -31,7 +34,11 @@ module.exports = class RemoveSongCommand extends Command {
       return message.reply('현재 재생 중인 곡이 없습니다.');
     }
 
-    message.guild.musicData.queue.splice(songNumber - 1, 1);
-    return message.say(`Removed song number ${songNumber} from queue`);
+    if (message.guild.musicData.queue < 1)
+      return message.say('현재 대기열에 곡이 없습니다.');
+
+    message.guild.musicData.queue.splice(0, songNumber - 1);
+    message.guild.musicData.songDispatcher.end();
+    return;
   }
 };

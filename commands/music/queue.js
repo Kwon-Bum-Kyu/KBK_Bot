@@ -9,7 +9,7 @@ module.exports = class QueueCommand extends Command {
       group: 'music',
       memberName: 'queue',
       guildOnly: true,
-      description: 'Display the song queue'
+      description: '곡 대기열을 표시합니다.'
     });
   }
 
@@ -17,14 +17,11 @@ module.exports = class QueueCommand extends Command {
     if (message.guild.triviaData.isTriviaRunning)
       return message.say('Try again after the trivia has ended');
     if (message.guild.musicData.queue.length == 0)
-      return message.say('There are no songs in queue!');
+      return message.say('현재 대기열에 곡이 없습니다.');
     const titleArray = [];
-    /* eslint-disable */
-    // display only first 10 items in queue
-    message.guild.musicData.queue.slice(0, 10).forEach(obj => {
+    message.guild.musicData.queue.map(obj => {
       titleArray.push(obj.title);
     });
-    /* eslint-enable */
     var queueEmbed = new MessageEmbed()
       .setColor('#ff7373')
       .setTitle('Music Queue');

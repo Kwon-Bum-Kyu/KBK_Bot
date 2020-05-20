@@ -10,7 +10,7 @@ module.exports = class LyricsCommand extends Command {
       name: 'lyrics',
       memberName: 'lyrics',
       description:
-        'Get lyrics of any song or the lyrics of the currently playing song',
+        '가사를 검색합니다. (작동 잘 안 함)',
       group: 'music',
       throttling: {
         usages: 1,
@@ -21,7 +21,7 @@ module.exports = class LyricsCommand extends Command {
           key: 'songName',
           default: '',
           type: 'string',
-          prompt: 'What song lyrics would you like to get?'
+          prompt: '가사를 얻고 싶은 곡의 이름을 입력해주세요.'
         }
       ]
     });
@@ -37,7 +37,7 @@ module.exports = class LyricsCommand extends Command {
       return message.say('Please try again after the trivia has ended');
     } else if (songName == '' && !message.guild.musicData.isPlaying) {
       return message.say(
-        'There is no song playing right now, please try again with a song name or play a song first'
+        '현재 재생 중인 곡이 없습니다. 곡 이름을 명시하거나 곡을 추가한 뒤 시도하세요.'
       );
     }
     const sentMessage = await message.channel.send(

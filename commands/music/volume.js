@@ -8,7 +8,7 @@ module.exports = class VolumeCommand extends Command {
       group: 'music',
       memberName: 'volume',
       guildOnly: true,
-      description: 'Adjust song volume',
+      description: '곡의 볼륨을 조절합니다.',
       throttling: {
         usages: 1,
         duration: 5
@@ -16,11 +16,9 @@ module.exports = class VolumeCommand extends Command {
       args: [
         {
           key: 'wantedVolume',
-          prompt: 'What volume would you like to set? from 1 to 200',
+          prompt: '1-100 사이의 정수를 입력하세요.',
           type: 'integer',
-          validate: function(wantedVolume) {
-            return wantedVolume >= 1 && wantedVolume <= 200;
-          }
+          validate: wantedVolume => wantedVolume >= 1 && wantedVolume <= 100
         }
       ]
     });
@@ -28,17 +26,17 @@ module.exports = class VolumeCommand extends Command {
 
   run(message, { wantedVolume }) {
     const voiceChannel = message.member.voice.channel;
-    if (!voiceChannel) return message.reply('Join a channel and try again');
+    if (!voiceChannel) return message.reply('음성 채널에 들어간 후 사용해주세요.');
 
     if (
       typeof message.guild.musicData.songDispatcher == 'undefined' ||
       message.guild.musicData.songDispatcher == null
     ) {
-      return message.reply('There is no song playing right now!');
+      return message.reply('현재 재생 중인 곡이 없습니다.');
     }
     const volume = wantedVolume / 100;
     message.guild.musicData.volume = volume;
     message.guild.musicData.songDispatcher.setVolume(volume);
-    message.say(`Current volume is: ${wantedVolume}%`);
+    message.say(`현재 볼륨: ${wantedVolume}%`);
   }
 };
