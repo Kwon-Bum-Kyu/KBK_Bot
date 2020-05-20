@@ -24,7 +24,6 @@ config.json 파일을 수정하여 API 토큰을 추가해야 합니다.
   "geniusLyricsAPI": "genius 가사사이트 API 토큰"
 }
 ```
-Open index.js and change the ID in line 30 to your discord user ID
 index.js를 열고 31번 줄의  `owner: '266500442610073602'`에서 숫자를 관리자의 디스코드 유저 ID로 바꿔주세요. 디스코드 봇의 관리자를 설정해야 합니다.
 
 ### 명령어 목록
