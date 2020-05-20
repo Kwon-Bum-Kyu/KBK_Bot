@@ -1,7 +1,5 @@
 {
 "prefix":"!",
 "token":"디스코드 봇 토큰",
-"youtubeAPI":"유튜브 API 토큰",
-"tenorAPI":"tenor 사이트 API 토큰",
-"geniusLyricsAPI":"genius 가사사이트 API 토큰"
+"youtubeAPI":"유튜브 API 토큰"
 }
