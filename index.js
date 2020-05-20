@@ -3,7 +3,7 @@ const { Structures } = require('discord.js');
 const path = require('path');
 const { prefix, token } = require('./config.json');
 
-Structures.extend('Guild', function(Guild) {
+Structures.extend('Guild', Guild => {
   class MusicGuild extends Guild {
     constructor(client, data) {
       super(client, data);
@@ -12,7 +12,8 @@ Structures.extend('Guild', function(Guild) {
         isPlaying: false,
         nowPlaying: null,
         songDispatcher: null,
-        volume: 1
+        volume: 1,
+        isLoop: false
       };
       this.triviaData = {
         isTriviaRunning: false,
@@ -27,16 +28,16 @@ Structures.extend('Guild', function(Guild) {
 
 const client = new CommandoClient({
   commandPrefix: prefix,
-  owner: 'your-discord-user-id' // change this to your Discord user ID
+  owner: '266500442610073602' // change this to your Discord user ID
 });
 
 client.registry
   .registerDefaultTypes()
   .registerGroups([
-    ['music', 'Music Command Group'],
-    ['gifs', 'Gif Command Group'],
-    ['other', 'random types of commands group'],
-    ['guild', 'guild related commands']
+    ['music', '음악 재생 관련 명령어'],
+    ['gifs', '움짤 관련 명령어'],
+    ['other', '기타'],
+    ['guild', '멤버 관리 관련 명령어']
   ])
   .registerDefaultGroups()
   .registerDefaultCommands({
@@ -48,16 +49,10 @@ client.registry
 
 client.once('ready', () => {
   console.log('Ready!');
-  client.user.setActivity(`${prefix}help`, {
+  client.user.setActivity('!help', {
     type: 'WATCHING',
     url: 'https://github.com/galnir/Master-Bot'
   });
-});
-
-client.on('guildMemberAdd', member => {
-  const channel = member.guild.channels.cache.find(ch => ch.name === 'general'); // change this to the channel name you want to send the greeting to
-  if (!channel) return;
-  channel.send(`Welcome ${member}!`);
 });
 
 client.login(token);
