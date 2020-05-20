@@ -1,4 +1,5 @@
-# Javascript로 작성된 디스코드 음악 봇입니다. discord.js 라이브러리와 discord.js-commando 프레임워크를 이용하여 작성되었습니다.
+# Javascript로 작성된 디스코드 음악 봇
+discord.js 라이브러리와 discord.js-commando 프레임워크를 이용하여 작성되었습니다.
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
 
