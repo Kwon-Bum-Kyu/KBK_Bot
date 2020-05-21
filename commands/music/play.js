@@ -263,7 +263,7 @@ module.exports = class PlayCommand extends Command {
               .addField('길이:', queue[0].duration);
             if (queue[1]) videoEmbed.addField('다음 곡:', queue[1].title);
             if(message.guild.musicData.isLoop){
-              message.say(queue[0].title+'반복 재생 중');
+              message.say(queue[0].title+' 반복 재생 중');
             }else{
               message.say(videoEmbed);
             }
