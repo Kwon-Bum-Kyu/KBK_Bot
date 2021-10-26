@@ -47,6 +47,13 @@ module.exports = class PlayCommand extends Command {
         const playlist = await youtube.getPlaylist(query);
         const videosObj = await playlist.getVideos(10); // remove the 10 if you removed the queue limit conditions below
         //const videos = Object.entries(videosObj);
+        // voiceChannel.join()
+        // .then(connection => { // Connection is an instance of VoiceConnection
+        //   msg.reply('playing music!');
+        //   const dispatcher = connection.playFile('./music.mp3');
+        //   dispatcher.on("end", end => {});
+        // })
+        // .catch(console.log);
         for (let i = 0; i < videosObj.length; i++) {
           const video = await videosObj[i].fetch();
 
